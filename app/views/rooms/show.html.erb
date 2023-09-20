@@ -1,0 +1,25 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+
+    <%= turbo_frame_tag 'room' do %>
+      <%= render @room %>
+
+      <%= link_to 'Edit this room', edit_room_path(@room), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium", data: {turbo_frame: 'room'} %>
+      <div class="inline-block ml-2">
+        <%= button_to 'Destroy this room', room_path(@room), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium", data: {turbo_frame: '_top'} %>
+      </div>
+      <%= link_to 'Back to rooms', rooms_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium", data: {turbo_frame: '_top'} %>
+    <%end%>
+
+    <div id="messages">
+      <p class="text-lg my-2">Room Messages:</p>
+      <%= render @room.messages %>
+    </div>
+
+    <%= turbo_frame_tag 'new_message', src:new_room_message_path(@room), target:'_top' %>
+    <%= turbo_stream_from @room %>
+  </div>
+</div>

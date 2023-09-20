@@ -1,0 +1,4 @@
+<div class="flex" id="<%= dom_id message %>">
+  <%= button_to 'Delete', room_message_path(message.room, message), method: :delete, form_class:'mr-2', data:{confirm: 'Are you sure?'} %>
+  <p><%= message.created_at.strftime('%b %d %H:%M:%S') %> : <%= message.content %></p>
+</div>
